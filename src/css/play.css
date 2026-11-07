@@ -1,0 +1,98 @@
+/* The game is the whole screen, so there is nothing to scroll to. */
+[data-page='play'] .footer { display: none; }
+.play { position: relative; height: var(--visible); overflow: hidden; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+[data-page='play'], [data-page='play'] body { overscroll-behavior: none; }
+.play__flat { display: none; }
+.play.is-flat .play__flat { display: block; position: absolute; top: 23vh; left: 0; width: 100%; height: 53vh; }
+.cell { fill: #14131f; stroke: #2c2a3f; stroke-width: 1.5; }
+.cell-wall { fill: var(--blue); stroke: #4d68ff; }
+.cell-hive { fill: var(--orange); stroke: #ff9a66; }
+.pollen { fill: var(--gold); stroke: #fff; stroke-width: 2.5; }
+.bot-heading, .bot-backing { fill: #fff; }
+
+.hud { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 4.6rem var(--edge) max(1.3rem, env(safe-area-inset-bottom, 0px)); pointer-events: none; }
+.hud__top { display: grid; justify-items: center; gap: .85rem; text-align: center; }
+.hud__line {
+  max-width: 34ch; min-height: 2.2em; font-family: var(--display); font-stretch: 62.5%; font-weight: 700;
+  font-size: clamp(1.25rem, 2.3vw, 2.05rem); line-height: 1.1; color: var(--paper); text-wrap: balance;
+}
+.hud__line[data-tone='win'] { color: var(--gold); }
+.hud__line[data-tone='miss'] { color: #ff9a66; }
+.hud__levels { display: flex; gap: .3rem; pointer-events: auto; }
+.level-hex {
+  --size: 19px; touch-action: manipulation; width: var(--size); height: calc(var(--size) * 1.155); padding: 0; border: 0; cursor: pointer; background: #ffffff2e;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); transition: transform .2s, background-color .2s;
+}
+@media (hover: hover) {
+  .level-hex:hover { transform: scale(1.18); }
+  .hex:hover:not(:disabled) { transform: translateY(-6px); }
+}
+.level-hex.is-solved { background: var(--paper); }
+.level-hex[aria-current='step'] { background: var(--orange); }
+
+.dock { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: end; gap: clamp(.8rem, 2vw, 2rem); pointer-events: auto; }
+.dock__palette, .dock__actions { display: flex; align-items: center; gap: .3rem; }
+
+/* Everything you press is a tile, so the controls belong to the board. */
+.hex {
+  --size: clamp(52px, 5vw, 66px); position: relative; width: var(--size); height: calc(var(--size) * 1.155); padding: 0; border: 0; background: none; color: var(--ink);
+  cursor: pointer; transition: transform .22s cubic-bezier(.3, 1.9, .5, 1);
+}
+.hex:active:not(:disabled) { transform: translateY(1px) scale(.93); }
+.hex:disabled { opacity: .34; cursor: not-allowed; }
+.hex__face {
+  position: absolute; inset: 0; display: grid; place-items: center; background: var(--tone);
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
+.hex svg, .chip svg { width: 46%; height: 46%; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.hex--F, .chip--F { --tone: var(--orange); }
+.hex--L, .hex--R, .chip--L, .chip--R { --tone: var(--ice); }
+.hex--C, .chip--C { --tone: var(--gold); }
+.hex--loop { --tone: var(--paper); }
+.hex--loop.is-open .hex__face { background: var(--orange); }
+.hex--tool { --size: clamp(40px, 3.6vw, 48px); --tone: #ffffff24; color: var(--paper); }
+.hex--run { --size: clamp(72px, 7vw, 92px); --tone: var(--orange); margin-left: .35rem; }
+.hex--run:not(:disabled) .hex__face { animation: ready 2.4s ease-in-out infinite; }
+@keyframes ready { 50% { filter: brightness(1.14); } }
+
+.dock__rail { display: flex; align-items: center; gap: .18rem; min-height: 72px; overflow-x: auto; scrollbar-width: none; padding-block: .3rem; }
+.dock__rail::-webkit-scrollbar { display: none; }
+.chip { --size: 46px; position: relative; flex: none; width: var(--size); height: calc(var(--size) * 1.155); color: var(--ink); transition: transform .18s cubic-bezier(.3, 1.9, .5, 1); }
+.chip--slot { --tone: #ffffff12; }
+.chip.is-now { transform: translateY(-8px) scale(1.12); z-index: 1; }
+.chip.is-now .hex__face { box-shadow: none; filter: brightness(1.2); }
+.loop { display: flex; flex: none; align-items: center; gap: .18rem; padding: .22rem .35rem .22rem .22rem; border: 1px solid #ffffff40; }
+.loop.is-open { border-color: var(--orange); }
+.loop ol { display: flex; align-items: center; gap: .18rem; min-width: 30px; min-height: 40px; }
+.loop .chip { --size: 40px; }
+.loop__count { min-width: 34px; min-height: 40px; padding: 0 .25rem; border: 0; background: none; color: var(--paper); font-family: var(--display); font-stretch: 62.5%; font-weight: 900; font-size: 1.35rem; cursor: pointer; }
+
+/* Portrait phones and small tablets: the program sits above a full-width row of blocks. */
+@media (max-width: 900px) {
+  .hud { padding-top: 4.3rem; }
+  .dock { grid-template-columns: minmax(0, 1fr) auto; gap: .55rem .5rem; }
+  .dock__palette { grid-column: 1 / -1; grid-row: 2; justify-content: space-between; gap: .15rem; }
+  .dock__palette .hex { --size: min(18.6vw, 84px); }
+  .dock__rail { grid-row: 1; min-height: 58px; gap: .1rem; }
+  .dock__actions { grid-row: 1; gap: .1rem; }
+  .chip--slot:nth-child(n + 5) { display: none; }
+  .chip { --size: 36px; }
+  .loop .chip { --size: 32px; }
+  .hex--run { --size: 58px; margin-left: .1rem; }
+  .hex--tool { --size: 44px; }
+}
+
+/* A phone on its side: board on the left, everything else stacked on the right. */
+@media (orientation: landscape) and (max-height: 520px) {
+  .hud { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 44vw); grid-template-rows: auto 1fr; justify-content: stretch; padding-top: max(.8rem, env(safe-area-inset-top, 0px)); }
+  .hud__top { grid-column: 2; padding-right: 3.2rem; justify-items: start; text-align: left; gap: .4rem; }
+  .hud__line { min-height: 0; font-size: clamp(1rem, 4.6vh, 1.3rem); }
+  .level-hex { --size: 15px; }
+  .dock { grid-column: 2; grid-row: 2; align-self: end; grid-template-columns: minmax(0, 1fr) auto; gap: .3rem .35rem; }
+  .dock__palette { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; gap: .12rem; }
+  .dock__palette .hex { --size: clamp(44px, 12.4vh, 54px); }
+  .dock__rail { grid-row: 1; min-height: 50px; }
+  .chip { --size: 36px; }
+  .hex--run { --size: 54px; }
+  .hex--tool { --size: 44px; }
+}

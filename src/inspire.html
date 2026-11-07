@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Inspire Tracker · Astrobot</title>
+  <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./css/inspire.css">
+</head>
+<body class="tracker">
+  <header class="tracker-nav">
+    <a class="tracker-nav__logo" href="./index.html"><img src="./assets/logo-white.svg" alt="Astrobot home" width="150" height="31"></a>
+    <span class="tracker-nav__tag">Team only</span>
+  </header>
+
+  <main class="tracker-main">
+    <p class="eyebrow eyebrow-dark">2026–27 Competition Manual, Section 6</p>
+    <h1>Inspire Tracker</h1>
+    <p class="section-lede">Judges only use the interview and the portfolio. They will not open this site or any other link, so every piece of evidence here has to end up in one of those two places.</p>
+
+    <section class="gates" aria-label="Inspire readiness">
+      <h2>Are we an Inspire contender?</h2>
+      <ul id="gates"></ul>
+      <p class="verdict" id="verdict" role="status" aria-live="polite"></p>
+    </section>
+
+    <section aria-labelledby="awards-title">
+      <h2 id="awards-title">Award criteria</h2>
+      <p class="section-lede">Mark each line once you can prove it. An award counts as covered when all of its Required lines are Ready.</p>
+      <div id="awards"></div>
+    </section>
+
+    <section class="rules" aria-labelledby="rules-title">
+      <h2 id="rules-title">Portfolio rules check</h2>
+      <ul id="rules"></ul>
+    </section>
+
+    <section class="save" aria-labelledby="save-title">
+      <h2 id="save-title">Share with the team</h2>
+      <p class="section-lede">Progress saves in this browser only. Export it to pass it to a teammate, or to keep a backup.</p>
+      <div class="run-row">
+        <button type="button" class="btn btn-primary" id="export">Export progress</button>
+        <label class="btn btn-quiet" for="import">Import progress</label>
+        <input type="file" id="import" accept="application/json" class="visually-hidden">
+      </div>
+      <p class="status" id="save-status" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <script type="module" src="./js/inspire.js"></script>
+</body>
+</html>

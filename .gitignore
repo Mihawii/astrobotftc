@@ -1,0 +1,14 @@
+# Dependencies and build output
+node_modules/
+dist/
+
+# Third-party component packs, about 1.3GB. The site does not use them when it builds.
+Hero Animations/
+Page Transitions/
+Text Animations/
+Webgl & ThreeJS Effects/
+
+# Local tools and machine files
+.claude/
+.claude-flow/
+.DS_Store

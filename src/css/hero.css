@@ -1,0 +1,19 @@
+.hero { position: relative; height: calc(var(--screen) * 2); }
+/* Full height behind the address bar, with the logo centred in the part you can see. */
+.hero__pin { position: sticky; top: 0; height: var(--screen); padding-bottom: calc(var(--screen) - var(--visible)); display: grid; place-items: center; overflow: hidden; }
+.hero__logo { width: min(76vw, 1240px); }
+.is-loading .hero__logo { clip-path: inset(-100vh -100vw 0 -100vw); }
+.lockup { width: 100%; height: auto; overflow: visible; fill: var(--orange); }
+.lockup[data-layout='tall'] { width: min(100%, 62vh); margin-inline: auto; }
+.lk-face { fill: #fff; }
+.is-loading .lockup { cursor: default; }
+.lockup { cursor: pointer; }
+
+@media (max-width: 760px) {
+  .hero__logo { width: 84vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero { height: var(--screen); }
+}
+.no-webgl .hero { height: var(--screen); }

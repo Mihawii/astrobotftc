@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en" class="is-loading">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Astrobot · Robotics team from Astana</title>
+  <meta name="description" content="Astrobot is a student robotics team from Astana, Kazakhstan: UK FIRST LEGO League champions, now competing in FIRST Tech Challenge.">
+  <meta name="theme-color" content="#08070c">
+  <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./assets/icon-180.png">
+  <style>html { background: #08070c; }</style>
+  <link rel="stylesheet" href="./css/main.css">
+  <noscript><style>.view { display: block !important; } html.is-loading { overflow: auto; } .hero__pin { position: static; }</style></noscript>
+</head>
+<body>
+  <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+  <canvas id="stage" class="stage is-off" aria-hidden="true"></canvas>
+
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__floor"><div class="loader__fill"></div></div>
+    <div class="loader__ball"></div>
+    <div class="loader__spark"></div>
+    <button type="button" class="loader__skip sr-only" data-i18n="skipIntro">Skip intro</button>
+  </div>
+
+  <div class="kinetic" id="kinetic" aria-hidden="true">
+    <div class="kinetic__type">
+      <div class="kinetic__line"></div><div class="kinetic__line"></div><div class="kinetic__line"></div>
+      <div class="kinetic__line"></div><div class="kinetic__line"></div><div class="kinetic__line"></div>
+      <div class="kinetic__line"></div><div class="kinetic__line"></div><div class="kinetic__line"></div>
+      <div class="kinetic__line"></div><div class="kinetic__line"></div>
+    </div>
+  </div>
+
+  <header class="nav" id="nav">
+    <a class="nav__home" href="#/" aria-label="Astrobot" id="nav-home"></a>
+    <nav class="nav__links" aria-label="Main">
+      <a href="#/story" data-i18n="navStory">Story</a>
+      <a href="#/season" data-i18n="navSeason">Season</a>
+      <a href="#/play" data-i18n="navPlay">Play</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="ru">РУ</button>
+      <button type="button" data-lang="kk">ҚАЗ</button>
+    </div>
+    <button type="button" class="nav__toggle" id="nav-toggle" aria-expanded="false" aria-controls="menu" aria-label="Menu" data-i18n-label="menu"><i></i><i></i></button>
+  </header>
+
+  <div class="menu" id="menu" hidden>
+    <nav class="menu__links" aria-label="Main">
+      <a class="menu__link" href="#/story"><span data-i18n="navStory">Story</span></a>
+      <a class="menu__link" href="#/season"><span data-i18n="navSeason">Season</span></a>
+      <a class="menu__link" href="#/play"><span data-i18n="navPlay">Play</span></a>
+    </nav>
+    <div class="menu__lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="ru">РУ</button>
+      <button type="button" data-lang="kk">ҚАЗ</button>
+    </div>
+  </div>
+
+  <main id="main" tabindex="-1">
+    <div class="view" data-view="home">
+      <section class="hero" id="hero" data-stage="eclipse" data-nav="night">
+        <div class="hero__pin">
+          <h1 class="sr-only" data-i18n="heroName">Astrobot</h1>
+          <div class="hero__logo" id="lockup"></div>
+        </div>
+      </section>
+
+      <section class="verbs" aria-label="How we work" data-i18n-label="verbsLabel">
+        <article class="verb verb--build" data-nav="orange">
+          <h2 class="verb__word" data-verb="verbBuild">Build</h2>
+        </article>
+        <article class="verb verb--test" data-nav="night">
+          <h2 class="verb__word" data-verb="verbTest">Test</h2>
+        </article>
+        <article class="verb verb--break" data-nav="paper">
+          <h2 class="verb__word" data-verb="verbBreak">Break</h2>
+        </article>
+        <article class="verb verb--fix" data-nav="night">
+          <h2 class="verb__word" data-verb="verbFix">Fix</h2>
+        </article>
+        <article class="verb verb--launch" data-nav="orange">
+          <h2 class="verb__word" data-verb="verbLaunch">Launch</h2>
+        </article>
+      </section>
+
+      <section class="statement" data-nav="night">
+        <h2 class="statement__line" data-scatter data-i18n="statement"></h2>
+        <div class="statement__foot">
+          <p class="statement__lede" data-reveal data-i18n="statementLede"></p>
+          <a class="link-big" href="#/story"><span data-i18n="storyLink"></span> <i aria-hidden="true">→</i></a>
+        </div>
+      </section>
+
+      <section class="orbit" id="orbit" data-stage="particles" data-nav="night">
+        <div class="orbit__pin" id="orbit-pin">
+          <svg class="orbit__rings" viewBox="0 0 1400 1400" aria-hidden="true">
+            <defs>
+              <path id="ring-1" d="M250,700.5A450.5,450.5 0 1 11151,700.5A450.5,450.5 0 1 1250,700.5"/>
+              <path id="ring-2" d="M382,700.5A318.5,318.5 0 1 11019,700.5A318.5,318.5 0 1 1382,700.5"/>
+              <path id="ring-3" d="M487,700.5A213.5,213.5 0 1 1914,700.5A213.5,213.5 0 1 1487,700.5"/>
+              <path id="ring-4" d="M567.5,700.5A133,133 0 1 1833.5,700.5A133,133 0 1 1567.5,700.5"/>
+            </defs>
+            <text class="ring ring--1"><textPath href="#ring-1"></textPath></text>
+            <text class="ring ring--2"><textPath href="#ring-2"></textPath></text>
+            <text class="ring ring--3"><textPath href="#ring-3"></textPath></text>
+            <text class="ring ring--4"><textPath href="#ring-4"></textPath></text>
+          </svg>
+          <a class="orbit__enter" href="#/play" id="orbit-enter">
+            <span class="orbit__enter-text"><span data-i18n="orbitCta">Play</span> <i aria-hidden="true">→</i></span>
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <div class="view" data-view="story" hidden>
+      <section class="page-head page-head--paper" data-nav="paper">
+        <h1 class="page-title" data-i18n="storyTitle"></h1>
+      </section>
+      <ol class="chapters" data-nav="paper">
+        <li class="chapter"><span class="chapter__no">01</span><div><h2 class="chapter__title" data-i18n="t1Title"></h2><p class="chapter__text" data-reveal data-i18n="t1"></p></div></li>
+        <li class="chapter"><span class="chapter__no">02</span><div><h2 class="chapter__title" data-i18n="t2Title"></h2><p class="chapter__text" data-reveal data-i18n="t2"></p></div></li>
+        <li class="chapter chapter--win"><span class="chapter__no">03</span><div><h2 class="chapter__title" data-i18n="t3Title"></h2><p class="chapter__text" data-reveal data-i18n="t3"></p></div></li>
+        <li class="chapter"><span class="chapter__no">04</span><div><h2 class="chapter__title" data-i18n="t4Title"></h2><p class="chapter__text" data-reveal data-i18n="t4"></p></div></li>
+      </ol>
+      <section class="heritage" data-nav="night">
+        <h2 class="heritage__name" data-scatter>artifacts.kz</h2>
+        <p class="heritage__text" data-reveal data-i18n="heritage"></p>
+        <a class="link-big" id="project-link" href="https://artifacts.kz" rel="noopener"><span data-i18n="heritageCta"></span> <i aria-hidden="true">↗</i></a>
+      </section>
+      <section class="impact" id="impact" data-nav="paper" hidden>
+        <h2 class="section-title" data-i18n="impactTitle"></h2>
+        <dl class="impact__numbers" id="impact-numbers"></dl>
+        <ul class="impact__list" id="impact-list"></ul>
+      </section>
+      <section class="people" id="people" data-nav="paper" hidden>
+        <h2 class="section-title" data-i18n="peopleTitle"></h2>
+        <ul class="people__roster" id="roster"></ul>
+        <ul class="people__sponsors" id="sponsors"></ul>
+      </section>
+      <a class="next-page" href="#/season" data-nav="orange"><span data-i18n="nextSeason"></span> <i aria-hidden="true">→</i></a>
+    </div>
+
+    <div class="view" data-view="season" hidden>
+      <div class="season" id="season" data-stage="planets" data-nav="night">
+        <section class="season__head">
+          <h1 class="season__title" data-fit data-i18n="seasonTitle"></h1>
+          <p class="page-lede" data-reveal data-i18n="seasonLede"></p>
+        </section>
+        <section class="phase">
+          <h2 class="phase__title" data-i18n="phase1"></h2>
+          <p class="phase__text" data-reveal data-i18n="phase1Text"></p>
+        </section>
+        <section class="phase phase--right">
+          <h2 class="phase__title" data-i18n="phase2"></h2>
+          <p class="phase__text" data-reveal data-i18n="phase2Text"></p>
+        </section>
+        <section class="phase">
+          <h2 class="phase__title" data-i18n="phase3"></h2>
+          <p class="phase__text" data-reveal data-i18n="phase3Text"></p>
+        </section>
+      </div>
+      <a class="next-page" href="#/play" data-nav="orange"><span data-i18n="nextPlay"></span> <i aria-hidden="true">→</i></a>
+    </div>
+
+    <div class="view" data-view="play" hidden>
+      <section class="play" id="play" data-stage="hive" data-nav="night">
+        <h1 class="sr-only" data-i18n="playTitle"></h1>
+        <svg class="play__flat" id="board" aria-hidden="true"></svg>
+        <div class="hud">
+          <div class="hud__top">
+            <p class="hud__line" id="hud-line" role="status" aria-live="polite"></p>
+            <div class="hud__levels" id="level-dots"></div>
+          </div>
+          <div class="dock">
+            <div class="dock__palette" id="palette"></div>
+            <ol class="dock__rail" id="program"></ol>
+            <div class="dock__actions" id="actions"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer" id="footer" data-nav="night">
+    <div class="footer__peek" id="footer-peek" aria-hidden="true"></div>
+    <img src="./assets/logo-white.svg" alt="Astrobot" width="190" height="39">
+    <ul class="footer__links" id="footer-links"></ul>
+    <p class="footer__legal" data-i18n="legal"></p>
+  </footer>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+:root {
+  --orange: #f1631e;
+  --orange-ink: #b23c05;
+  --night: #08070c;
+  --ink: #100f1a;
+  --ink-2: #1c1a2b;
+  --paper: #f4eee2;
+  --paper-2: #e9e1d1;
+  --line: #d9cfbb;
+  --muted: #5b5766;
+  --on-night-muted: #a9a5bb;
+  --blue: #1a3cff;
+  --ice: #a8dcff;
+  --gold: #f6b40e;
+  --display: 'Noto Serif Display Variable', 'Noto Serif', Georgia, serif;
+  --body: 'Onest Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono Variable', ui-monospace, Menlo, monospace;
+  --gutter: clamp(1rem, 3.2vw, 3rem);
+  --edge: max(var(--gutter), env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+  /* --screen is the tallest the screen gets; --visible is what shows with the address bar out. */
+  --screen: 100vh;
+  --visible: 100vh;
+}
+@supports (height: 100lvh) {
+  :root { --screen: 100lvh; --visible: 100svh; }
+}

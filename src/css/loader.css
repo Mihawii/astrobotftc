@@ -1,0 +1,6 @@
+.loader { position: fixed; inset: 0; z-index: 20; pointer-events: none; }
+.loader__floor { position: fixed; height: 2px; background: #ffffff24; }
+.loader__fill { width: 100%; height: 100%; background: var(--orange); transform: scaleX(0); transform-origin: right center; }
+.loader__ball, .loader__spark { position: fixed; top: 0; left: 0; border-radius: 50%; background: var(--orange); opacity: 0; will-change: transform; }
+.loader__spark { z-index: 21; background: #fff; box-shadow: 0 0 22px 8px #ffc08a, 0 0 70px 26px #f1631e88; }
+.loader__skip:focus-visible { position: fixed; right: var(--gutter); bottom: 1.2rem; width: auto; height: auto; padding: .4rem .6rem; overflow: visible; clip-path: none; background: var(--night); color: var(--paper); border: 0; font: 500 .75rem var(--mono); pointer-events: auto; }

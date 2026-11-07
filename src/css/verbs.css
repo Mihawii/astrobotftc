@@ -1,0 +1,97 @@
+.verb {
+  position: sticky; top: 0; height: var(--screen); overflow: hidden;
+  display: grid; place-items: center; padding: 0 var(--edge) calc(var(--screen) - var(--visible)); background: var(--bg); color: var(--fg);
+}
+.verb--build { --bg: var(--orange); --fg: var(--ink); --ghost: #100f1a33; }
+.verb--test { --bg: var(--blue); --fg: var(--paper); --ghost: #f4eee233; }
+.verb--break { --bg: var(--paper); --fg: var(--ink); --ghost: #100f1a26; }
+.verb--fix { --bg: var(--ink); --fg: var(--orange); --ghost: #f1631e33; }
+.verb--launch { --bg: var(--orange); --fg: var(--ink); --ghost: #100f1a40; }
+
+.verb__word {
+  position: relative; z-index: 1; display: inline-block; white-space: nowrap; font-family: var(--display); font-stretch: 62.5%; font-weight: 900;
+  line-height: 1; letter-spacing: -.01em; font-size: 22vw;
+}
+.verb__echo {
+  position: absolute; z-index: -1; top: 50%; left: 50%; display: none; flex-direction: column; align-items: center;
+  transform: translate(-50%, -50%); pointer-events: none; color: var(--ghost);
+}
+.verb__echo span { white-space: nowrap; opacity: calc(1 - var(--away) * .14); }
+@media (max-aspect-ratio: 1/1) {
+  .verb__echo { display: flex; }
+}
+
+.char { position: relative; display: inline-block; }
+.is-live .char { will-change: transform; }
+
+/* Build: letters drop in one by one and land with a squash. */
+.is-live .verb__word:is(.verb--build *) .char { animation: build 5.2s cubic-bezier(.3, 0, .3, 1) calc(var(--i) * .09s) infinite both; transform-origin: 50% 100%; }
+@keyframes build {
+  0% { transform: translateY(-130vh) rotate(calc(var(--side) * 14deg)); }
+  13% { transform: translateY(0) scale(1.08, .78); }
+  18% { transform: translateY(-5%) scale(.96, 1.06); }
+  23%, 92% { transform: none; }
+  100% { transform: translateY(130vh) rotate(calc(var(--side) * -10deg)); }
+}
+
+/* Test: the word shudders, then every letter vibrates at a slightly different rate. */
+.is-live .verb__word:is(.verb--test *) { animation: shiver 2.6s linear infinite; }
+.is-live .verb__word:is(.verb--test *) .char { animation: shiver-letter .14s linear calc(var(--i) * -.0125s) infinite; }
+@keyframes shiver {
+  1% { transform: translateX(1%); } 2% { transform: translateX(-1%); } 3% { transform: translateX(1.6%); }
+  4% { transform: translateX(-1.6%); } 5% { transform: translateX(2%); } 6% { transform: translateX(-2%); }
+  7% { transform: translateX(1.6%); } 8% { transform: translateX(-1.6%); } 9% { transform: translateX(1%); }
+  10% { transform: translateX(-1%); } 11% { transform: translateX(.4%); } 12%, 100% { transform: none; }
+}
+@keyframes shiver-letter {
+  25% { transform: translateY(.6%); }
+  50% { transform: translate(calc(var(--edge) * 1.2%), calc(var(--edge) * 1.2%)); }
+  75% { transform: translateY(-.6%); }
+}
+
+/* Break: the word holds, cracks, and collapses. Then it pulls itself back together. */
+.is-live .verb__word:is(.verb--break *) .char { animation: crash 5s cubic-bezier(.5, 0, .4, 1) infinite both; transform-origin: 0% 100%; }
+@keyframes crash {
+  0%, 16% { transform: none; }
+  20% { transform: rotate(calc(var(--tilt) * .12)); }
+  24% { transform: rotate(calc(var(--tilt) * .1)) translateY(1%); }
+  34% { transform: translateY(var(--drop)) rotate(var(--tilt)); }
+  38% { transform: translateY(calc(var(--drop) * .88)) rotate(calc(var(--tilt) * .92)); }
+  42%, 84% { transform: translateY(var(--drop)) rotate(var(--tilt)); }
+  96%, 100% { transform: none; }
+}
+
+/* Fix: it starts wrecked, and each letter snaps upright in turn. */
+.is-live .verb__word:is(.verb--fix *) .char { animation: mend 4.6s calc(var(--i) * .12s) infinite both; transform-origin: 50% 100%; }
+@keyframes mend {
+  0%, 14% { transform: translateY(var(--drop)) rotate(var(--tilt)); }
+  21% { transform: translateY(-7%) rotate(calc(var(--tilt) * -.16)); }
+  25% { transform: translateY(2.5%) rotate(calc(var(--tilt) * .06)); }
+  29% { transform: translateY(-1%) rotate(0); }
+  33%, 88% { transform: none; }
+  100% { transform: translateY(var(--drop)) rotate(var(--tilt)); }
+}
+
+/* Launch: letters lift off in a wave, each leaving a ghost behind it. */
+.is-live .verb__word:is(.verb--launch *) .char { animation: rise 3.4s cubic-bezier(.25, .46, .45, .94) calc(var(--edge) * .42s) infinite; transform-origin: 50% 100%; }
+@keyframes rise {
+  40% { transform: translateY(-36%) rotate(calc(var(--side) * 10deg)); }
+  50% { transform: translateY(6%); }
+  55% { transform: translateY(-4%); }
+  60% { transform: translateY(2%); }
+  65% { transform: translateY(-1%); }
+  70%, 100% { transform: none; }
+}
+.verb--launch .char::after {
+  content: attr(data-char); position: absolute; inset: 0; color: var(--ghost); opacity: 0; pointer-events: none;
+}
+.is-live .verb__word:is(.verb--launch *) .char::after { animation: ghost 3.4s ease-in calc(var(--edge) * .42s) infinite; }
+@keyframes ghost {
+  8% { opacity: 0; transform: none; }
+  40% { opacity: 1; transform: translateY(-30%) rotate(calc(var(--side) * -10deg)); }
+  60%, 100% { opacity: 0; transform: translateY(-190%); }
+}
+
+@media (max-width: 760px) {
+  .verb { padding-top: 4rem; }
+  }
